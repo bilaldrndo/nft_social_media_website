@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favourites</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <style>
+        .navbar {
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+
+        .nav-item {
+            padding: 0 10px;
+        }
+
+        .inner-cont {
+            padding: 3%;
+            border-radius: 15px;
+            border: 0.5px solid gray;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .inner-cont img {
+            border-radius: 2%;
+        }
+
+        .inner-cont h4 {
+            margin-top: 2.5%;
+        }
+
+        .inner-cont #desc {
+            margin-top: 2%;
+            margin-bottom: 4%;
+            font-size: 110%;
+        }
+
+        .inner-cont .btn {
+            margin-right: 2% !important;
+        }
+
+        .col-sm-4 {
+            padding: 0.5%;
+        }
+
+        .nft-image {
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding-top: 1%;
+        }
+
+        .form-group {
+            padding-bottom: 10px;
+        }
+
+        .float {
+            position: fixed;
+            width: 70px;
+            height: 70px;
+            bottom: 30px;
+            right: 30px;
+            background-color: rgba(49, 108, 244, 1);
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+            text-decoration: none;
+        }
+
+        .float h2 {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 35px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top shadow">
+        <a class="navbar-brand" href="">
+            <img src="images/logo_line.png" alt="Logo" height="30" class="d-inline-block align-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Online Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="">My Collection</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="leaderboard.html">Leaderboard</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
+                        <a class="dropdown-item" href="#">Log Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+        </div>
+        <a href="#" class="float new-btn" data-toggle="modal" data-target="#exampleModal">
+            <h2>+</h2>
+        </a>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                </div>
+                <div class="modal-body">
+                    <form id="nft-form">
+                        <div class="form-group">
+                            <label for="nft-name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nft-name" class="col-form-label">Description:</label>
+                            <input type="text" class="form-control" id="description" placeholder="Enter Description"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nft-img" class="col-form-label">Image Url:</label>
+                            <input type="text" class="form-control" id="imgUrl" placeholder="Enter Url" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nft-certificate" class="col-form-label">Image Certificate Url:</label>
+                            <input type="text" class="form-control" id="certificate" placeholder="Enter Certificate Url"
+                                required>
+                        </div>
+                        <!-- <div id="error-message" class="alert alert-danger mt-3" style="margin-bottom: 0px;">
+                            Error: please populate all fields</div> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="submit-btn" data-dismiss="modal" class="btn btn-primary">Add</button>
+                    <button type="submit" id="save-btn" data-dismiss="modal" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var userId = localStorage.getItem("userId");
+        var username = localStorage.getItem("username");
+
+        if (userId) {
+            $(document).ready(function () {
+
+                document.getElementById("navbarDropdown").textContent = username;
+
+                var selectedNftId = -1;
+
+                var nftDictionary = {};
+
+                var page = 1;
+                var isLoading = false;
+
+                loadNFTs();
+
+                function loadNFTs() {
+                    if (isLoading) {
+                        return;
+                    }
+
+                    isLoading = true;
+
+                    $.ajax({
+                        url: 'http://localhost/project/api/user-nfts/' + page + '/' + userId,
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+                        success: function (response) {
+                            console.log(response);
+                            var nfts = response;
+
+                            if (nfts.length > 0) {
+                                $.each(nfts, function (index, nft) {
+                                    var nftId = nft.nftId;
+                                    var imageUrl = nft.image;
+                                    var name = nft.name;
+                                    var description = nft.description;
+                                    var publisherName = nft.username;
+                                    var certificate = nft.certificate;
+
+                                    nftDictionary[nftId] = {
+                                        nftId: nftId,
+                                        imageUrl: imageUrl,
+                                        name: name,
+                                        description: description,
+                                        certificate: certificate
+                                    };
+
+                                    var nftElement =
+                                        '<div class="col-sm-4 nft-container" id="' + nftId + '">' +
+                                        '<div class="inner-cont">' +
+                                        '<img class="nft-image" src="' + imageUrl + '" width="100%" height="300px">' +
+                                        '<h4>' + name + '</h4>' +
+                                        '<p id="desc">' + 'Description: ' + description + '</p>' +
+                                        '<button id="edit-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit</button>' +
+                                        '<button id="delete-btn" type="button" class="btn btn-danger">Delete</button>' +
+                                        '</div>' +
+                                        '</div>';
+                                    $('.row').append(nftElement);
+                                });
+
+                                page++; // Increment the page for the next request
+                            } else {
+                                if (page === 1) {
+                                    $(window).off('scroll');
+                                    $('.row').append('<div class= "col-lg-12 d-flex align-items-center justify-content-center" style = "height: 90vh;" > <h5>You haven\'t published any NFTs!</h5 ></div >');
+                                }
+                            }
+
+                            isLoading = false;
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error); // Handle error response
+                        }
+                    });
+                }
+
+                $(window).on('scroll', function () {
+                    var scrollPosition = $(document).scrollTop();
+                    var windowHeight = $(window).height();
+                    var documentHeight = $(document).height();
+
+                    if (scrollPosition + windowHeight >= documentHeight) {
+                        loadNFTs();
+                    }
+                });
+
+                $('.row').on('click', '#delete-btn', function (e) {
+                    e.preventDefault();
+                    console.log();
+
+                    var nftId = $(this).closest('.nft-container').attr('id');
+                    console.log(nftId);
+
+                    $.ajax({
+                        type: 'DELETE',
+                        url: 'http://localhost/project/api/nfts/' + nftId,
+                        data: {},
+                        dataType: 'json',
+                        success: function (response) {
+                            document.getElementById(nftId).remove();
+                        },
+                        error: function (xhr, status, error) {
+                            //MARK: DO ERROR FUNCTIONS
+                        }
+                    });
+                });
+
+                $('.row').on('click', '#edit-btn', function (e) {
+                    e.preventDefault();
+
+                    document.getElementById("exampleModalLabel").textContent = "Edit NFT";
+
+                    document.getElementById("save-btn").style.display = "block";
+                    document.getElementById('submit-btn').style.display = "none";
+                    document.getElementById("imgUrl").readOnly = true;
+                    document.getElementById("certificate").readOnly = true;
+                    document.getElementById("imgUrl").style.backgroundColor = '#ececec';
+                    document.getElementById("certificate").style.backgroundColor = '#ececec';
+
+                    var nftId = $(this).closest('.nft-container').attr('id');
+                    console.log(nftId);
+
+                    nftItem = nftDictionary[nftId];
+
+                    $('#name').val(nftItem.name);
+                    $('#imgUrl').val(nftItem.imageUrl);
+                    $('#certificate').val(nftItem.certificate);
+                    $('#description').val(nftItem.description);
+
+                    selectedNftId = nftId;
+                });
+
+                $("#save-btn").on("click", function (e) {
+                    e.preventDefault();
+
+                    var name = $('#name').val();
+                    var description = $('#description').val();
+
+                    if (name !== '' && description !== '') {
+
+                        var dataToSubmit = {
+                            name: name,
+                            description: description,
+                        };
+
+                        console.log("Selected NFT Id is " + selectedNftId);
+                        console.log("name " + name);
+                        console.log("description" + description);
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://localhost/project/api/nfts/update/' + selectedNftId,
+                            data: dataToSubmit,
+                            dataType: 'json',
+                            success: function (response) {
+                                console.log(response);
+
+                                document.getElementById(selectedNftId).querySelector('.inner-cont h4').textContent = name;
+                                document.getElementById(selectedNftId).querySelector('.inner-cont p').textContent = 'Description: ' + description;
+
+                                // nftDictionary[selectedNftId][name] = name;
+                                // nftDictionary[selectedNftId][description] = description;
+                            },
+                            error: function (xhr, status, error) {
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    console.log(xhr.responseJSON);
+
+                                    var errorMessage = xhr.responseJSON.message;
+                                    $('#error-message').text(errorMessage);
+                                    $('#error-message').show();
+                                }
+                            }
+                        });
+                    } else {
+                        console.log('Please populate all fields');
+                    }
+                });
+
+
+                $("#new-btn").on("click", function (e) {
+                    e.preventDefault();
+
+                    document.getElementById("exampleModalLabel").textContent = "Add a new NFT";
+
+                    document.getElementById("save-btn").style.display = "none";
+                    document.getElementById('submit-btn').style.display = "block";
+                    document.getElementById("imgUrl").readOnly = false;
+                    document.getElementById("certificate").readOnly = false;
+                    document.getElementById("imgUrl").style.backgroundColor = '#fff';
+                    document.getElementById("certificate").style.backgroundColor = '#fff';
+
+                    $('#name').val("");
+                    $('#imgUrl').val("");
+                    $('#certificate').val("");
+                    $('#description').val("");
+
+                    selectedNftId = -1;
+                });
+
+                $("#submit-btn").on("click", function (e) {
+                    e.preventDefault();
+
+                    var name = $('#name').val();
+                    var imgUrl = $('#imgUrl').val();
+                    var certificate = $('#certificate').val();
+                    var description = $('#description').val();
+
+                    if (name !== '' && imgUrl !== '' && certificate !== '' && description !== '') {
+                        var dataToSubmit = {
+                            userid: userId,
+                            name: name,
+                            imgUrl: imgUrl,
+                            certificate: certificate,
+                            description: description,
+                        };
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://localhost/project/api/nfts',
+                            data: dataToSubmit,
+                            dataType: 'json',
+                            success: function (response) {
+                                console.log(response);
+                                console.log(response.id);
+
+                                var nftId = response.id;
+
+                                var nftElement =
+                                    '<div class="col-sm-4 nft-container" id="' + nftId + '">' +
+                                    '<div class="inner-cont">' +
+                                    '<img class="nft-image" src="' + imgUrl + '" width="100%" height="300px">' +
+                                    '<h4>' + name + '</h4>' +
+                                    '<p id="desc">' + 'Description: ' + description + '</p>' +
+                                    '<button id="edit-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Edit</button>' +
+                                    '<button id="delete-btn" type="button" class="btn btn-danger">Delete</button>' +
+                                    '</div>' +
+                                    '</div>';
+                                $('.row').prepend(nftElement);
+                            },
+                            error: function (xhr, status, error) {
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    console.log(xhr.responseJSON);
+
+                                    var errorMessage = xhr.responseJSON.message;
+                                    $('#error-message').text(errorMessage);
+                                    $('#error-message').show();
+                                }
+                            }
+                        });
+                    } else {
+                        console.log('Please populate all fields');
+                    }
+                });
+            });
+        } else {
+            window.location.replace("signin.html");
+        }
+    </script>
+</body>
+
+</html>

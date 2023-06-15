@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <style>
+        .navbar {
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+
+        .nav-item {
+            padding: 0 10px;
+        }
+
+        .custom-btn {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .custom-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .inner-cont {
+            padding: 3%;
+            border-radius: 15px;
+            border: 0.5px solid gray;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .inner-cont img {
+            border-radius: 2%;
+        }
+
+        .inner-cont h4 {
+            margin-top: 2.5%;
+        }
+
+        .inner-cont #desc {
+            margin-top: 2%;
+            margin-bottom: 0px;
+            font-size: 110%;
+        }
+
+        .inner-cont #pub {
+            margin-top: 1%;
+            font-size: 90%;
+            color: rgb(63, 63, 63);
+        }
+
+        .col-sm-4 {
+            padding: 0.5%;
+        }
+
+        .nft-image {
+            object-fit: cover;
+        }
+
+        .form-group {
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top shadow">
+        <a class="navbar-brand" href="">
+            <img src="images/logo_line.png" alt="Logo" height="30" class="d-inline-block align-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="">Online Catalogue</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mycollection.html">My Collection</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="leaderboard.html">Leaderboard</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="right: 0; left: auto;">
+                        <!-- <a class="dropdown-item" href="#">New NFT</a> -->
+                        <!-- <div class="dropdown-divider"></div> -->
+                        <a class="dropdown-item" href="#">Log Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row first-row"></div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add a new NFT</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="nft-form">
+                        <div class="form-group">
+                            <label for="nft-name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nft-name" class="col-form-label">Description:</label>
+                            <input type="text" class="form-control" id="description" placeholder="Enter Description"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nft-img" class="col-form-label">Image Url:</label>
+                            <input type="text" class="form-control" id="imgUrl" placeholder="Enter Url" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nft-certificate" class="col-form-label">Image Certificate Url:</label>
+                            <input type="text" class="form-control" id="certificate" placeholder="Enter Certificate Url"
+                                required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" id="submit-btn" data-dismiss="modal" class="btn btn-primary">Add NFT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var userId = localStorage.getItem("userId");
+        var username = localStorage.getItem("username");
+
+        if (userId) {
+            $(document).ready(function () {
+
+                document.getElementById("navbarDropdown").textContent = username;
+
+                var page = 1; // Current page
+                var isLoading = false;
+
+                loadNFTs();
+
+                function loadNFTs() {
+
+                    if (isLoading) {
+                        return; // Exit if data is already being loaded
+                    }
+
+                    isLoading = true;
+
+                    $.ajax({
+                        url: 'http://localhost/project/api/nfts/' + page,
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {},
+                        success: function (response) {
+                            console.log(response);
+                            var nfts = response;
+
+                            if (nfts.length > 0) {
+                                $.each(nfts, function (index, nft) {
+                                    var imageUrl = nft.image;
+                                    var name = nft.name;
+                                    var description = nft.description;
+                                    var publisherName = nft.username;
+
+                                    var nftElement = '<div class="col-sm-4">' +
+                                        '<div class="inner-cont">' +
+                                        '<img class="nft-image" src="' + imageUrl + '" width="100%" height="300px">' +
+                                        '<h4>' + name + '</h4>' +
+                                        '<p id="desc">' + 'Description: ' + description + '</p>' +
+                                        '<p id="pub">' + 'Published By: ' + publisherName + '</p>' +
+                                        '<button type="button" class="btn btn-primary">Show Info</button>' +
+                                        '</div>' +
+                                        '</div>';
+                                    $('.row').append(nftElement);
+                                });
+
+                                page++; // Increment the page for the next request
+                            } else {
+                                $(window).off('scroll');
+                            }
+
+                            isLoading = false;
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(error); // Handle error response
+                        }
+                    });
+                }
+
+                $(window).on('scroll', function () {
+                    var scrollPosition = $(document).scrollTop();
+                    var windowHeight = $(window).height();
+                    var documentHeight = $(document).height();
+
+                    // Check if scrolled to the bottom of the page
+                    if (scrollPosition + windowHeight >= documentHeight) {
+                        loadNFTs();
+                    }
+                });
+
+                $("#submit-btn").on("click", function (e) {
+                    e.preventDefault();
+
+                    var name = $('#name').val();
+                    var imgUrl = $('#imgUrl').val();
+                    var certificate = $('#certificate').val();
+                    var description = $('#description').val();
+
+
+                    if (name !== '' && imgUrl !== '' && certificate !== '') {
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://localhost/project/api/nfts',
+                            data: {
+                                userid: userId,
+                                name: name,
+                                imgUrl: imgUrl,
+                                certificate: certificate,
+                                description: description,
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                console.log(response);
+                                console.log(response.user);
+
+                                var nftElement = '<div class="col-sm-4">' +
+                                    '<div class="inner-cont">' +
+                                    '<img class="nft-image" src="' + imgUrl + '" width="100%" height="300px">' +
+                                    '<h4>' + name + '</h4>' +
+                                    '<p id="desc">' + 'Description: ' + description + '</p>' +
+                                    '<p id="pub">' + 'Published By: ' + username + '</p>' +
+                                    '<button type="button" class="btn btn-primary">Show Info</button>' +
+                                    '</div>' +
+                                    '</div>';
+                                $('.row').prepend(nftElement);
+                            },
+                            error: function (xhr, status, error) {
+                                if (xhr.responseJSON && xhr.responseJSON.message) {
+                                    console.log(xhr.responseJSON);
+
+                                    var errorMessage = xhr.responseJSON.message;
+                                    $('#error-message').text(errorMessage);
+                                    $('#error-message').show();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+        } else {
+            window.location.replace("signin.html");
+        }
+    </script>
+</body>
+
+</html>
