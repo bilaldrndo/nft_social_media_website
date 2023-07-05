@@ -102,7 +102,7 @@
                     isLoading = true;
 
                     $.ajax({
-                        url: 'http://localhost/project/api/admin/users/' + page,
+                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/admin/users/' + page,
                         type: 'GET',
                         dataType: 'json',
                         data: {},
@@ -183,7 +183,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: 'http://localhost/project/api/admin/block/' + userId,
+                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/admin/block/' + userId,
                         data: {},
                         dataType: 'json',
                         beforeSend: function (xhr) {
@@ -214,7 +214,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: 'http://localhost/project/api/admin/unblock/' + userId,
+                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/admin/unblock/' + userId,
                         data: {},
                         dataType: 'json',
                         beforeSend: function (xhr) {

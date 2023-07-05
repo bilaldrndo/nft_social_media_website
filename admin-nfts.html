@@ -138,7 +138,7 @@
                     isLoading = true;
 
                     $.ajax({
-                        url: 'http://localhost/project/api/nfts/' + page,
+                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/nfts/' + page,
                         type: 'GET',
                         dataType: 'json',
                         data: {},
@@ -234,7 +234,7 @@
 
                     $.ajax({
                         type: 'DELETE',
-                        url: 'http://localhost/project/api/nfts/' + nftId,
+                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/nfts/' + nftId,
                         data: {},
                         dataType: 'json',
                         beforeSend: function (xhr) {

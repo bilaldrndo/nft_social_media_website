@@ -162,7 +162,7 @@
                     isLoading = true;
 
                     $.ajax({
-                        url: 'http://localhost/project/api/user-nfts/' + page + '/' + userId,
+                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/user-nfts/' + page + '/' + userId,
                         type: 'GET',
                         dataType: 'json',
                         data: {},
@@ -241,7 +241,7 @@
 
                     $.ajax({
                         type: 'DELETE',
-                        url: 'http://localhost/project/api/nfts/' + nftId,
+                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/nfts/' + nftId,
                         data: {},
                         dataType: 'json',
                         beforeSend: function (xhr) {
@@ -304,7 +304,7 @@
 
                         $.ajax({
                             type: 'POST',
-                            url: 'http://localhost/project/api/nfts/update/' + selectedNftId,
+                            url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/nfts/update/' + selectedNftId,
                             data: dataToSubmit,
                             dataType: 'json',
                             beforeSend: function (xhr) {
@@ -378,7 +378,7 @@
 
                         $.ajax({
                             type: 'POST',
-                            url: 'http://localhost/project/api/nfts',
+                            url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/nfts',
                             data: dataToSubmit,
                             dataType: 'json',
                             beforeSend: function (xhr) {
