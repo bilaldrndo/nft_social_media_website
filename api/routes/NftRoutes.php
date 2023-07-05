@@ -101,7 +101,7 @@ Flight::route('POST /nfts', function () {
 
 
 /**
- * @OA\Put(
+ * @OA\Post(
  *     path="/nfts/{id}",
  *     tags={"nfts"},
  *     description="Update an existing NFT",
@@ -127,7 +127,7 @@ Flight::route('POST /nfts', function () {
  *     )
  * )
  */
-Flight::route('PUT /nfts/@id', function ($id) {
+Flight::route('POST /nfts/update/@id', function ($id) {
     $name = Flight::request()->data['name'];
     $description = Flight::request()->data['description'];
 
