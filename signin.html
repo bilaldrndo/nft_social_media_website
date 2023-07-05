@@ -49,6 +49,12 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        var userToken = localStorage.getItem("userToken");
+
+        if (userToken) {
+            window.location.replace("index.html");
+        }
+
         $(document).ready(function () {
 
             $('#signin-form').submit(function (e) {
@@ -65,15 +71,20 @@
                     },
                     dataType: 'json',
                     success: function (response) {
-                        console.log(response);
-                        console.log(response.user);
-                        console.log(response.user.id);
 
                         localStorage.setItem("userId", response.user.id);
                         localStorage.setItem("username", response.user.username);
                         localStorage.setItem("email", response.user.email);
+                        localStorage.setItem("userToken", response.token);
 
-                        window.location.replace("index.html");
+
+                        if (response.user.isAdmin === 1) {
+                            localStorage.setItem("isAdmin", true);
+                            window.location.replace("admin-users.html");
+                        } else {
+                            localStorage.setItem("isAdmin", false);
+                            window.location.replace("index.html");
+                        }
                     },
                     error: function (xhr, status, error) {
                         if (xhr.responseJSON && xhr.responseJSON.message) {

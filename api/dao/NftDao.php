@@ -1,24 +1,11 @@
 <?php
+require_once "BaseDao.php";
 
-class NftDao
+class NftDao extends BaseDao
 {
-    private $db;
-
     public function __construct()
     {
-        $host = '127.0.0.1';
-        $database = 'nft_db';
-        $username = 'root';
-        $password = '28012003';
-
-        // Establish database connection
-        $dsn = "mysql:host=$host;dbname=$database";
-        $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ];
-        $this->db = new PDO($dsn, $username, $password, $options);
+        parent::__construct();
     }
 
     public function getAllNFTs($page)
