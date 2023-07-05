@@ -1,1 +1,0 @@
-const baseApiRoute = 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/';
