@@ -39,6 +39,20 @@ Flight::route('/*', function () {
     }
 });
 
+// Flight::route('GET /docs', function () {
+//     // $openapi = \OpenApi\scan('routes');
+//     $openapi = \OpenApi\Generator::scan(['routes']);
+//     // header('Content-Type: application/json');
+//     header('Content-Type: application/x-yaml');
+//     echo $openapi->toYaml();
+// });
+
+Flight::route('GET /docs.json', function () {
+    $openapi = \OpenApi\scan('routes');
+    header('Content-Type: application/json');
+    echo $openapi->toJson();
+});
+
 require 'routes/UserRoutes.php';
 require 'routes/NftRoutes.php';
 require 'routes/AdminRoutes.php';

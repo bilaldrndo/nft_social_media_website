@@ -13,7 +13,6 @@ class NftDao extends BaseDao
         $limit = 15;
         $offset = ($page - 1) * $limit;
 
-        // $stmt = $this->db->prepare("SELECT * FROM nfts ORDER BY id DESC LIMIT :limit OFFSET :offset");
         $stmt = $this->db->prepare("SELECT nfts.id as nftId, users.id as userId, users.username, nfts.name, nfts.image, nfts.certificate, nfts.description FROM nfts JOIN users ON nfts.userid=users.id ORDER BY nftId DESC LIMIT :limit OFFSET :offset");
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);

@@ -303,8 +303,8 @@
                         console.log("description" + description);
 
                         $.ajax({
-                            type: 'POST',
-                            url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/nfts/update/' + selectedNftId,
+                            type: 'PUT',
+                            url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/nfts/' + selectedNftId,
                             data: dataToSubmit,
                             dataType: 'json',
                             beforeSend: function (xhr) {
