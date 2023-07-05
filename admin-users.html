@@ -75,6 +75,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="js/logout.js"></script>
+    <script src="js/route.js"></script>
     <script>
         var userToken = localStorage.getItem("userToken");
         var usernameFromStg = localStorage.getItem("username");
@@ -102,7 +105,7 @@
                     isLoading = true;
 
                     $.ajax({
-                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/admin/users/' + page,
+                        url: baseApiRoute + ' admin/users/' + page,
                         type: 'GET',
                         dataType: 'json',
                         data: {},
@@ -183,7 +186,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/admin/block/' + userId,
+                        url: baseApiRoute + ' admin/block/' + userId,
                         data: {},
                         dataType: 'json',
                         beforeSend: function (xhr) {
@@ -214,7 +217,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: 'https://nft-social-media-4eefe819eec9.herokuapp.com/api/admin/unblock/' + userId,
+                        url: baseApiRoute + ' admin/unblock/' + userId,
                         data: {},
                         dataType: 'json',
                         beforeSend: function (xhr) {
@@ -239,8 +242,6 @@
             window.location.replace("signin.html");
         }
     </script>
-
-    <script src="js/logout.js"></script>
 </body>
 
 </html>

@@ -18,12 +18,13 @@ Flight::register('adminService', 'AdminService');
 session_start();
 
 Flight::route('/*', function () {
-    //perform JWT decode
+
     $path = Flight::request()->url;
-    if ($path == '/signup' || $path == '/signin' || $path == '/docs.json' || $path == '/connection-check.json')
-        return TRUE; // exclude login route from middleware
+    if ($path == '/signup' || $path == '/signin' || $path == '/docs.json')
+        return TRUE;
 
     $headers = getallheaders();
+
     if (!$headers['Authorization']) {
         Flight::json(["message" => "Authorization is missing"], 403);
         return FALSE;
