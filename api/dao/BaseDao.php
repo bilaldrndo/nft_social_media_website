@@ -9,11 +9,11 @@ class BaseDao
     {
         try {
 
-            $host = 'sql7.freesqldatabase.com';
-            $user = 'sql7630734';
-            $pass = 'YD8ZFneYG9';
-            $schema = 'sql7630734';
-            $port = '3306';
+            $host = getenv('host');
+            $user = getenv('user');
+            $pass = getenv('pass');
+            $schema = getenv('schema');
+            $port = getenv('port');
 
             $this->db = new PDO("mysql:host=$host;port=$port;dbname=$schema", $user, $pass);
 
