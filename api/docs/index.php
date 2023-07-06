@@ -26,6 +26,10 @@
             margin: 0;
             background: #fafafa;
         }
+
+        .swagger-ui .topbar {
+            background-color: #1b1b1b !important;
+        }
     </style>
 </head>
 
