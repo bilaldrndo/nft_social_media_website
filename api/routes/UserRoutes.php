@@ -87,7 +87,28 @@ Flight::route('POST /signin', function () {
 });
 
 
-//MARK: Add swagger
+/**
+ * @OA\Post(
+ *     path="/signout/{userId}",
+ *     tags={"auth"},
+ *     summary="Sign out a user",
+ *     security={{"ApiKeyAuth": {}}},
+ *     @OA\Parameter(
+ *         name="userId",
+ *         in="path",
+ *         description="ID of the user to sign out",
+ *         required=true,
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Success",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string")
+ *         )
+ *     )
+ * )
+ */
 Flight::route('POST /signout/@userId', function ($userId) {
     $userService = Flight::userService();
     $userService->signOutUser($userId);

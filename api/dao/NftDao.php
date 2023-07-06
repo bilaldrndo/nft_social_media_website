@@ -99,6 +99,6 @@ class NftDao extends BaseDao
 
         $this->addNewItemToNftHistory($id, 'delete');
 
-        return ['message' => 'Nft deleted succesfully'];
+        return ['message' => 'Nft deleted succesfully', 'code' => 200];
     }
 }
