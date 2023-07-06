@@ -87,7 +87,7 @@ class UserDao extends BaseDao
         if ($user['password'] === $passwordHashed) {
             unset($user['password']); // Remove password from the response
 
-            $this->addNewItemToAuthHistory($userId, 'signup');
+            $this->addNewItemToAuthHistory($userId, 'signin');
             return ['user' => $user, 'message' => 'User signed in successfuly', 'token' => $token, 'code' => 200];
         } else {
             return ['message' => 'Error: Incorrect password', 'code' => 500];
