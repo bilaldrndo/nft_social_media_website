@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
 
@@ -137,7 +136,6 @@
                                 page++; // Increment the page for the next request
                             } else {
                                 $(window).off('scroll');
-                                // $('.row').append('<div class= "col-lg-12 d-flex align-items-center justify-content-center" style = "height: 90vh;" > <h5>You haven\'t published any NFTs!</h5 ></div >');
                             }
 
                             isLoading = false;
@@ -148,7 +146,6 @@
                     });
                 }
 
-                // Load NFTs on page load
                 loadUsers();
 
                 $(window).on('scroll', function () {
