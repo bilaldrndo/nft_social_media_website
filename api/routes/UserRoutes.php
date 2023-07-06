@@ -87,6 +87,13 @@ Flight::route('POST /signin', function () {
 });
 
 
+//MARK: Add swagger
+Flight::route('POST /signout/@userId', function ($userId) {
+    $userService = Flight::userService();
+    $userService->signOutUser($userId);
+    Flight::json(['message' => 'success']);
+});
+
 /**
  * @OA\Get(
  *     path="/users-leaderboard/{page}",

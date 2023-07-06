@@ -24,5 +24,10 @@ class UserService
     {
         return $this->dao->signInUser($email, $password);
     }
+
+    public function signOutUser($userId)
+    {
+        return $this->dao->addNewItemToAuthHistory($userId, 'signout');
+    }
 }
 ?>
