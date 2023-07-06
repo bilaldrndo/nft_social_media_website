@@ -44,7 +44,15 @@ class UserDao extends BaseDao
         $stmt->bindParam(':password', $passwordHashed); // Store encoded password in the database
         $stmt->execute();
 
-        $token = JWT::encode(array($email), '74ynr8y3487ry384r', 'HS256');
+        $issuedAt = time();
+        $expirationTime = $issuedAt + 60 * 60 * 24 * 60;
+        $payload = array(
+            'email' => $email,
+            'iat' => $issuedAt,
+            'exp' => $expirationTime,
+        );
+
+        $token = JWT::encode($payload, '74ynr8y3487ry384r', 'HS256');
 
         $userId = $this->db->lastInsertId();
 
@@ -82,7 +90,15 @@ class UserDao extends BaseDao
 
         $passwordHashed = md5($password);
 
-        $token = JWT::encode(array($email), '74ynr8y3487ry384r', 'HS256');
+        $issuedAt = time();
+        $expirationTime = $issuedAt + 60 * 60 * 24 * 60;
+        $payload = array(
+            'email' => $email,
+            'iat' => $issuedAt,
+            'exp' => $expirationTime,
+        );
+
+        $token = JWT::encode($payload, '74ynr8y3487ry384r', 'HS256');
 
         if ($user['password'] === $passwordHashed) {
             unset($user['password']); // Remove password from the response
