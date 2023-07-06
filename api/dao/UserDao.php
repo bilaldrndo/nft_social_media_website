@@ -11,26 +11,6 @@ class UserDao extends BaseDao
         parent::__construct();
     }
 
-    public function getAllUsersForLeaderboard($page)
-    {
-        $limit = 25;
-        $offset = ($page - 1) * $limit;
-
-        $query = "SELECT users.username, users.email, users.id as userId, COUNT(nfts.userId) AS numOfpublishedNfts FROM nfts 
-                  JOIN users ON nfts.userid=users.id 
-                  GROUP BY users.id 
-                  ORDER BY numOfpublishedNfts DESC
-                  LIMIT :limit
-                  OFFSET :offset";
-
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
-    }
-
     public function signUpUser($username, $email, $password)
     {
         // Check if username or email already exists
@@ -95,5 +75,25 @@ class UserDao extends BaseDao
         } else {
             return ['message' => 'Error: Incorrect password', 'code' => 500];
         }
+    }
+
+    public function getAllUsersForLeaderboard($page)
+    {
+        $limit = 25;
+        $offset = ($page - 1) * $limit;
+
+        $query = "SELECT users.username, users.email, users.id as userId, COUNT(nfts.userId) AS numOfpublishedNfts FROM nfts 
+                  JOIN users ON nfts.userid=users.id 
+                  GROUP BY users.id 
+                  ORDER BY numOfpublishedNfts DESC
+                  LIMIT :limit
+                  OFFSET :offset";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 }

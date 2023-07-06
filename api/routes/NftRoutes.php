@@ -14,7 +14,7 @@
  *     ),
  *     @OA\Response(
  *         response=200,
- *         description="OK"
+ *         description="OK",
  *     )
  * )
  */
@@ -79,10 +79,17 @@ Flight::route('GET /user-nfts/@page/@userid', function ($page, $userid) {
  *     @OA\Response(
  *         response=200,
  *         description="New NFT added",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string"),
+ *             @OA\Property(property="id", type="integer")
+ *         )
  *     ),
  *     @OA\Response(
  *         response=500,
  *         description="Error: NFT with this Certificate already exists",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string")
+ *         )
  *     )
  * )
  */
@@ -102,7 +109,7 @@ Flight::route('POST /nfts', function () {
 
 /**
  * @OA\Post(
- *     path="/nfts/{id}",
+ *     path="/nfts/update/{id}",
  *     tags={"nfts"},
  *     description="Update an existing NFT",
  *     security={{"ApiKeyAuth": {}}},
@@ -124,6 +131,9 @@ Flight::route('POST /nfts', function () {
  *     @OA\Response(
  *         response=200,
  *         description="NFT successfully edited",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string")
+ *         )
  *     )
  * )
  */
@@ -154,6 +164,9 @@ Flight::route('POST /nfts/update/@id', function ($id) {
  *     @OA\Response(
  *         response=200,
  *         description="NFT deleted successfully",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string")
+ *         )
  *     )
  * )
  */
