@@ -91,7 +91,7 @@ Flight::route('POST /signin', function () {
  * @OA\Post(
  *     path="/signout/{userId}",
  *     tags={"auth"},
- *     summary="Sign out a user",
+ *     description="Sign out a user",
  *     security={{"ApiKeyAuth": {}}},
  *     @OA\Parameter(
  *         name="userId",
