@@ -4,10 +4,10 @@ NFT Social Media Wesbite built with:
     - HTML, CSS, JS - Frontend
     - PHP - Backend
 
-Website Uses:
+### Website Uses:
     - Composer - dependency installation
     - Boostrap - UI Components
-    - JQueruy - misc UI Stuff
+    - JQueruy - misc UI manipulation
     - Ajax - web requests
     - MySQL - database
     - JWT Tokens - session management
