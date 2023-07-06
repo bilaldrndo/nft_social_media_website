@@ -8,6 +8,15 @@ class NftDao extends BaseDao
         parent::__construct();
     }
 
+    public function addNewItemToNftHistory($nftId, $type)
+    {
+        $query = "INSERT INTO nft_history (nftId, time, type) VALUES (:nftId, NOW(), :type)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':nftId', $nftId);
+        $stmt->bindParam(':type', $type);
+        $stmt->execute();
+    }
+
     public function getAllNFTs($page)
     {
         $limit = 15;
@@ -27,7 +36,6 @@ class NftDao extends BaseDao
         $limit = 15;
         $offset = ($page - 1) * $limit;
 
-        // $stmt = $this->db->prepare("SELECT * FROM nfts ORDER BY id DESC LIMIT :limit OFFSET :offset");
         $stmt = $this->db->prepare("SELECT id as nftId, name, image, certificate, description FROM nfts WHERE userid = :userId ORDER BY nftId DESC LIMIT :limit OFFSET :offset");
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
@@ -40,7 +48,6 @@ class NftDao extends BaseDao
 
     public function addNft($userid, $name, $imgUrl, $certificate, $description)
     {
-        // Check if username or email already exists
         $query = "SELECT COUNT(*) as count FROM nfts WHERE certificate = :certificate";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':certificate', $certificate);
@@ -61,7 +68,11 @@ class NftDao extends BaseDao
         $stmt->bindParam(':description', $description);
         $stmt->execute();
 
-        return ['message' => 'New Nft added', 'id' => $this->db->lastInsertId(), 'code' => 200];
+        $nftId = $this->db->lastInsertId();
+
+        $this->addNewItemToNftHistory($nftId, 'new');
+
+        return ['message' => 'New Nft added', 'id' => $nftId, 'code' => 200];
     }
 
     public function editNft($nftId, $name, $description)
@@ -73,6 +84,8 @@ class NftDao extends BaseDao
         $stmt->bindParam(':description', $description);
         $stmt->execute();
 
+        $this->addNewItemToNftHistory($nftId, 'edit');
+
         return ['message' => 'Nft Succesfully edited', 'code' => 200];
     }
 
@@ -83,6 +96,8 @@ class NftDao extends BaseDao
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
+
+        $this->addNewItemToNftHistory($id, 'delete');
 
         return ['message' => 'Nft deleted succesfully'];
     }
