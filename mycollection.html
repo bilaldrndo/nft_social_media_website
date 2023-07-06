@@ -210,7 +210,7 @@
                             } else {
                                 if (page === 1) {
                                     $(window).off('scroll');
-                                    $('.row').append('<div class= "col-lg-12 d-flex align-items-center justify-content-center" style = "height: 90vh;" id="no-published-nfts"> <h5>You haven\'t published any NFTs!</h5 ></div >');
+                                    $('.row').append('<div class= "col-lg-12 d-flex align-items-center justify-content-center" style = "height: 90vh;"> <h5>You haven\'t published any NFTs!</h5 ></div >');
                                 }
                             }
 
@@ -406,8 +406,6 @@
                                 $('.row').prepend(nftElement);
 
                                 $('#exampleModal').modal('hide');
-
-                                $('#no-published-nfts').hide();
                             },
                             error: function (xhr, status, error) {
                                 if (xhr.responseJSON && xhr.responseJSON.message) {

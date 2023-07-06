@@ -11,6 +11,15 @@ class UserDao extends BaseDao
         parent::__construct();
     }
 
+    public function addNewItemToAuthHistory($userId, $type)
+    {
+        $query = "INSERT INTO auth_history (userId, time, type) VALUES (:userId, NOW(), :type)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':userId', $userId);
+        $stmt->bindParam(':type', $type);
+        $stmt->execute();
+    }
+
     public function signUpUser($username, $email, $password)
     {
         // Check if username or email already exists
@@ -37,7 +46,11 @@ class UserDao extends BaseDao
 
         $token = JWT::encode(array($email), '74ynr8y3487ry384r', 'HS256');
 
-        return ['message' => 'User signed up successfully', 'token' => $token, 'userId' => $this->db->lastInsertId(), 'code' => 200];
+        $userId = $this->db->lastInsertId();
+
+        $this->addNewItemToAuthHistory($userId, 'signup');
+
+        return ['message' => 'User signed up successfully', 'token' => $token, 'userId' => $userId, 'code' => 200];
     }
 
     public function signInUser($email, $password)
@@ -53,10 +66,12 @@ class UserDao extends BaseDao
             return ['message' => 'Error: User does not exist', 'code' => 500];
         }
 
+        $userId = $user['id'];
+
         //check if user is blcoked
         $query2 = "SELECT COUNT(*) as count FROM blocked WHERE userId = :id";
         $stmt2 = $this->db->prepare($query2);
-        $stmt2->bindParam(':id', $user['id']);
+        $stmt2->bindParam(':id', $userId);
         $stmt2->execute();
 
         $blockStatus = $stmt2->fetch();
@@ -71,6 +86,8 @@ class UserDao extends BaseDao
 
         if ($user['password'] === $passwordHashed) {
             unset($user['password']); // Remove password from the response
+
+            $this->addNewItemToAuthHistory($userId, 'signup');
             return ['user' => $user, 'message' => 'User signed in successfuly', 'token' => $token, 'code' => 200];
         } else {
             return ['message' => 'Error: Incorrect password', 'code' => 500];
