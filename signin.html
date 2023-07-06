@@ -78,13 +78,13 @@
                         localStorage.setItem("userToken", response.token);
 
 
-                        // if (response.user.isAdmin === 1) {
-                        //     localStorage.setItem("isAdmin", true);
-                        //     window.location.replace("admin-users.html");
-                        // } else {
-                        //     localStorage.setItem("isAdmin", false);
-                        //     window.location.replace("index.html");
-                        // }
+                        if (response.user.isAdmin === 1) {
+                            localStorage.setItem("isAdmin", true);
+                            window.location.replace("admin-users.html");
+                        } else {
+                            localStorage.setItem("isAdmin", false);
+                            window.location.replace("index.html");
+                        }
                     },
                     error: function (xhr, status, error) {
                         if (xhr.responseJSON && xhr.responseJSON.message) {
